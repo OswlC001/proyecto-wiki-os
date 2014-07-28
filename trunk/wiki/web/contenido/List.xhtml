@@ -8,8 +8,8 @@
 
     <h:form id="ContenidoListForm">
         <p align="right">
-            <p:commandLink value="Ingresar"/> &nbsp;&nbsp;
-            <p:commandLink value="Registrarse"/>&nbsp;&nbsp;&nbsp;
+            <p:commandLink id="ingresar" value="#{userLoginView.ingreso}" onclick="PF('dlg').show();"/> &nbsp;&nbsp;
+            <p:commandLink id="registrarse" value="Registrarse"/>&nbsp;&nbsp;&nbsp;
         </p>
         <p:tabView id="tabW1">
             <p:tab id="tab1" title="Contenido">
@@ -85,6 +85,20 @@
                 </p:panel>
             </p:tab>
         </p:tabView>
+        <p:dialog header="Login" widgetVar="dlg" resizable="false">
+            <h:panelGrid columns="2" cellpadding="5">
+                <h:outputLabel for="username" value="Username:" />
+                <p:inputText id="username" value="#{userLoginView.username}" required="true" label="username" />
+
+                <h:outputLabel for="password" value="Password:" />
+                <p:password id="password" value="#{userLoginView.password}" required="true" label="password" />
+
+                <f:facet name="footer">
+                    <p:commandButton value="Login" update="ingresar" actionListener="#{userLoginView.login}"
+                                     oncomplete="handleLoginRequest(xhr, status, args)" />
+                </f:facet>  
+            </h:panelGrid>
+        </p:dialog>
     </h:form>
 
 </ui:composition>
