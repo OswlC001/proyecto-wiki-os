@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="UsuarioEditDlg" widgetVar="UsuarioEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{appBundle.EditUsuarioTitle}" closeOnEscape="true">
+
+            <h:form id="UsuarioEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{usuarioController.selected != null}">
+
+
+                        <h:outputLabel value="#{appBundle.EditUsuarioLabel_usId}" for="usId" />
+                        <h:outputText id="usId" value="#{usuarioController.selected.usId}" />
+
+                        <p:outputLabel value="#{appBundle.EditUsuarioLabel_usApellidos}" for="usApellidos" />
+                        <p:inputText id="usApellidos" value="#{usuarioController.selected.usApellidos}" title="#{appBundle.EditUsuarioTitle_usApellidos}" size="70" maxlength="70"/>
+
+                        <p:outputLabel value="#{appBundle.EditUsuarioLabel_usNombre}" for="usNombre" />
+                        <p:inputText id="usNombre" value="#{usuarioController.selected.usNombre}" title="#{appBundle.EditUsuarioTitle_usNombre}" size="70" maxlength="70"/>
+
+                        <p:outputLabel value="#{appBundle.EditUsuarioLabel_usTipo}" for="usTipo" />
+                        <p:inputText id="usTipo" value="#{usuarioController.selected.usTipo}" title="#{appBundle.EditUsuarioTitle_usTipo}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{appBundle.EditUsuarioLabel_usClave}" for="usClave" />
+                        <p:inputText id="usClave" value="#{usuarioController.selected.usClave}" title="#{appBundle.EditUsuarioTitle_usClave}" size="30" maxlength="30"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuarioController.save}" value="#{appBundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,UsuarioEditDialog);">
+                        <p:confirm header="#{appBundle.ConfirmationHeader}" message="#{appBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{appBundle.Cancel}" onclick="UsuarioEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

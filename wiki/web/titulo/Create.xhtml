@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TituloCreateDlg" widgetVar="TituloCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{appBundle.CreateTituloTitle}" closeOnEscape="true">
+
+            <h:form id="TituloCreateForm">
+
+                <h:panelGroup id="display" rendered="#{tituloController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{appBundle.CreateTituloLabel_titTitulo}" for="titTitulo" />
+                        <p:inputText id="titTitulo" value="#{tituloController.selected.titTitulo}" title="#{appBundle.CreateTituloTitle_titTitulo}" size="70" maxlength="70"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tituloController.saveNew}" value="#{appBundle.Save}" update="display,:TituloListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,TituloCreateDialog);">
+                        <p:confirm header="#{appBundle.ConfirmationHeader}" message="#{appBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{appBundle.Cancel}" onclick="TituloCreateDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

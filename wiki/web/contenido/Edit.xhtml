@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ContenidoEditDlg" widgetVar="ContenidoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{appBundle.EditContenidoTitle}" closeOnEscape="true">
+
+            <h:form id="ContenidoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{contenidoController.selected != null}">
+
+
+                        <h:outputLabel value="#{appBundle.EditContenidoLabel_conCodigo}" for="conCodigo" />
+                        <h:outputText id="conCodigo" value="#{contenidoController.selected.conCodigo}" />
+
+                        <p:outputLabel value="#{appBundle.EditContenidoLabel_conContenido}" for="conContenido" />
+                        <p:inputTextarea rows="4" cols="30" id="conContenido" value="#{contenidoController.selected.conContenido}" title="#{appBundle.EditContenidoTitle_conContenido}" />
+
+                        <p:outputLabel value="#{appBundle.EditContenidoLabel_conFecha}" for="conFecha" />
+                        <p:calendar id="conFecha" pattern="MM/dd/yyyy HH:mm:ss" value="#{contenidoController.selected.conFecha}" title="#{appBundle.EditContenidoTitle_conFecha}"  showOn="button"/>
+
+                        <p:outputLabel value="#{appBundle.EditContenidoLabel_titCodigo}" for="titCodigo" />
+                        <p:selectOneMenu id="titCodigo" value="#{contenidoController.selected.titCodigo}"  converter="tituloConverter">
+                            <f:selectItem itemLabel="#{appBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tituloController.items}"
+                                           var="titCodigoItem"
+                                           itemValue="#{titCodigoItem}"
+                                           itemLabel="#{titCodigoItem.titCodigo.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{appBundle.EditContenidoLabel_usId}" for="usId" />
+                        <p:selectOneMenu id="usId" value="#{contenidoController.selected.usId}"  converter="usuarioConverter">
+                            <f:selectItem itemLabel="#{appBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.items}"
+                                           var="usIdItem"
+                                           itemValue="#{usIdItem}"
+                                           itemLabel="#{usIdItem.usId.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{contenidoController.save}" value="#{appBundle.Save}" update="display,:ContenidoListForm:tabW1:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,ContenidoEditDialog);">
+                        <p:confirm header="#{appBundle.ConfirmationHeader}" message="#{appBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{appBundle.Cancel}" onclick="ContenidoEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
