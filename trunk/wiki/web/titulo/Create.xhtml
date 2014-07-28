@@ -18,7 +18,7 @@
                         <p:outputLabel value="#{appBundle.CreateTituloLabel_titTitulo}" for="titTitulo" />
                         <p:inputText id="titTitulo" value="#{tituloController.selected.titTitulo}" title="#{appBundle.CreateTituloTitle_titTitulo}" size="70" maxlength="70"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{tituloController.saveNew}" value="#{appBundle.Save}" update="display,:TituloListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,TituloCreateDialog);">
+                    <p:commandButton actionListener="#{tituloController.saveNew}" value="#{appBundle.Save}" ajax="false" update="display,:TituloListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,TituloCreateDialog);">
                         <p:confirm header="#{appBundle.ConfirmationHeader}" message="#{appBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
                     </p:commandButton>
 

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package sessionBeans;
 
 import entidades.Usuario;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,6 +17,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class UsuarioFacade extends AbstractFacade<Usuario> {
+
     @PersistenceContext(unitName = "wikiPU")
     private EntityManager em;
 
@@ -28,5 +29,10 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     public UsuarioFacade() {
         super(Usuario.class);
     }
-    
+
+    public List<Usuario> findByID(String usId) {
+        List<Usuario> itemsUs = em.createQuery("SELECT u FROM Usuario u WHERE u.usId = :usId").setParameter("usId", usId).getResultList();
+        return itemsUs;
+    }
+
 }
