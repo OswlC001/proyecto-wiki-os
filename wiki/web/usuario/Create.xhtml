@@ -30,7 +30,7 @@
                         <p:outputLabel value="#{appBundle.CreateUsuarioLabel_usClave}" for="usClave" />
                         <p:inputText id="usClave" value="#{usuarioController.selected.usClave}" title="#{appBundle.CreateUsuarioTitle_usClave}" size="30" maxlength="30"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{usuarioController.saveNew}" value="#{appBundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,UsuarioCreateDialog);">
+                    <p:commandButton action="#{contenidoController.actualizarUsuario()}" actionListener="#{usuarioController.saveNew}" value="#{appBundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,UsuarioCreateDialog);">
                         <p:confirm header="#{appBundle.ConfirmationHeader}" message="#{appBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
                     </p:commandButton>
 

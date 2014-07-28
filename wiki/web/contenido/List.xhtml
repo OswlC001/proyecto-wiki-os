@@ -8,8 +8,10 @@
 
     <h:form id="ContenidoListForm">
         <p align="right">
-            <p:commandLink id="ingresar" value="#{userLoginView.ingreso}" onclick="PF('dlg').show();"/> &nbsp;&nbsp;
-            <p:commandLink id="registrarse" value="Registrarse"/>&nbsp;&nbsp;&nbsp;
+            <p:commandLink rendered="#{userLoginView.ingreso=='Ingresar'}" id="ingresar" value="#{userLoginView.ingreso}" onclick="PF('dlg').show();"/> &nbsp;&nbsp;
+            <h:link rendered="#{userLoginView.ingreso!='Ingresar'}" value="#{userLoginView.ingreso}" outcome="/usuario/index"/>&nbsp;&nbsp;&nbsp;
+            <h:link rendered="#{userLoginView.ingreso=='Ingresar'}" value="Registrarse" outcome="/usuario/index"/>&nbsp;&nbsp;&nbsp;
+            <p:commandLink rendered="#{userLoginView.ingreso!='Ingresar'}" id="salir2" value="Salir" onclick="PF('dlgSalir').show();"/> &nbsp;&nbsp;
         </p>
         <p:tabView id="tabW1">
             <p:tab id="tab1" title="Contenido">
@@ -40,7 +42,7 @@
             </p:tab>
             <p:tab id="tab3" title="Historial">
                 <p:panel header="#{contenidoController.titulo}" style="text-align: center">           
-                    <p:dataTable id="datalist" rowIndexVar="rowIndex"  value="#{contenidoController.itemsContenido}" var="item" paginator="true" rows="10" rowsPerPageTemplate="10,20,30,40,50">
+                    <p:dataTable id="datalist" rowIndexVar="rowIndex"  value="#{contenidoController.itemsContenido}" var="item" paginator="true" rows="15" rowsPerPageTemplate="10,20,30,40,50">
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Versión"/>
@@ -77,14 +79,16 @@
                 <p:panel header="#{contenidoController.titulo}">
                     <p:editor id="editor" value="#{contenidoController.contenido}" widgetVar="editorWidget" height="400"/>
                     <h:panelGrid columns="2" style="margin-top: 10px">
-                        <p:commandButton id="guardar" value="Guardar" action="#{contenidoController.guardar}" ajax="false"  icon="ui-icon-disk">
+                        <p:commandButton disabled="#{contenidoController.usCodigo==null}" id="guardar" value="Guardar" action="#{contenidoController.guardar}" ajax="false"  icon="ui-icon-disk">
                             <f:param name="param" value="#{contenidoController.titCodigo}" />
                         </p:commandButton>
                         <p:commandButton id="cancelar" value="Cancelar" type="button" onclick="PF('editorWidget').clear();" icon="ui-icon-close" />
                     </h:panelGrid>
                 </p:panel>
             </p:tab>
-        </p:tabView>
+        </p:tabView>       
+    </h:form>
+    <h:form id="formLog">
         <p:dialog header="Login" widgetVar="dlg" resizable="false">
             <h:panelGrid columns="2" cellpadding="5">
                 <h:outputLabel for="username" value="Username:" />
@@ -94,11 +98,21 @@
                 <p:password id="password" value="#{userLoginView.password}" required="true" label="password" />
 
                 <f:facet name="footer">
-                    <p:commandButton value="Login" update="ingresar" actionListener="#{userLoginView.login}"
+                    <p:commandButton value="Login" update=":ContenidoListForm" actionListener="#{userLoginView.login}"
                                      oncomplete="handleLoginRequest(xhr, status, args)" />
                 </f:facet>  
             </h:panelGrid>
         </p:dialog>
     </h:form>
-
+    <h:form id="formSalir">
+        <p:dialog header="Salir" widgetVar="dlgSalir" resizable="false">
+            <h:panelGrid columns="2" cellpadding="5"> 
+                <h:outputText value="¿Seguro desea cerrar sesión?"/>
+                <br/>              
+                <h:panelGrid columns="2" style="margin-top: 10px; text-align: center">
+                    <p:commandButton id="salir" value="Aceptar" ajax="falses" action="#{userLoginView.logout}" oncomplete="PF('dlgSalir').clear();"/>
+                </h:panelGrid>              
+            </h:panelGrid>
+        </p:dialog>
+    </h:form>
 </ui:composition>

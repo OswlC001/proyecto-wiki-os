@@ -21,7 +21,7 @@
                         <p:outputLabel value="#{appBundle.EditTituloLabel_titTitulo}" for="titTitulo" />
                         <p:inputText id="titTitulo" value="#{tituloController.selected.titTitulo}" title="#{appBundle.EditTituloTitle_titTitulo}" size="70" maxlength="70"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{tituloController.save}" value="#{appBundle.Save}" update="display,:TituloListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,TituloEditDialog);">
+                    <p:commandButton actionListener="#{tituloController.save}" ajax="false" value="#{appBundle.Save}" update="display,:TituloListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,TituloEditDialog);">
                         <p:confirm header="#{appBundle.ConfirmationHeader}" message="#{appBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
                     </p:commandButton>
                     <p:commandButton value="#{appBundle.Cancel}" onclick="TituloEditDialog.hide()"/>

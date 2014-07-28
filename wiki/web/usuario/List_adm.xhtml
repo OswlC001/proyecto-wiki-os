@@ -7,8 +7,10 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <h:form id="UsuarioListForm">
+
         <p:panel header="#{appBundle.ListUsuarioTitle}">
             <p:contextMenu id="UsuarioDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{appBundle.Create}" onclick="document.getElementById('UsuarioListForm:createButton').click();" icon="ui-icon-plus"/>
                 <p:menuitem value="#{appBundle.View}" onclick="document.getElementById('UsuarioListForm:viewButton').click();" icon="ui-icon-search"/>
                 <p:menuitem value="#{appBundle.Edit}" onclick="document.getElementById('UsuarioListForm:editButton').click();" icon="ui-icon-pencil"/>
                 <p:menuitem value="#{appBundle.Delete}" onclick="document.getElementById('UsuarioListForm:deleteButton').click();" icon="ui-icon-trash"/>
@@ -17,7 +19,7 @@
                 <p:menuitem value="#{appBundle.UsuarioMenuItem_discusionList}" icon="ui-icon-search"  action="#{usuarioController.navigateDiscusionList}" disabled="#{empty usuarioController.selected.discusionList}" ajax="false"/>  
             </p:contextMenu>
             <p:dataTable id="datalist"
-                         value="#{contenidoController.itemsUsuario}"
+                         value="#{usuarioController.items}"
                          var="item"
                          rowKey="#{item.usId}"
                          paginator="true"
@@ -53,9 +55,26 @@
                     <h:outputText value="#{item.usNombre}"/>
                 </p:column>
 
+
+                <p:column sortBy="#{item.usTipo}" filterBy="#{item.usTipo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{appBundle.ListUsuarioTitle_usTipo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.usTipo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.usClave}" filterBy="#{item.usClave}">
+                    <f:facet name="header">
+                        <h:outputText value="#{appBundle.ListUsuarioTitle_usClave}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.usClave}"/>
+                </p:column>
+
+
             </p:dataTable>
 
-            <p:commandButton id="createButton" disabled="#{contenidoController.usCodigo!=null}" icon="ui-icon-plus"   value="#{appBundle.Create}" actionListener="#{usuarioController.prepareCreate}" update=":UsuarioCreateForm" oncomplete="UsuarioCreateDialog.show()"/>
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{appBundle.Create}" actionListener="#{usuarioController.prepareCreate}" update=":UsuarioCreateForm" oncomplete="UsuarioCreateDialog.show()"/>
             <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{appBundle.View}" update=":UsuarioViewForm" oncomplete="UsuarioViewDialog.show()" disabled="#{empty usuarioController.selected}"/>
             <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{appBundle.Edit}" update=":UsuarioEditForm" oncomplete="UsuarioEditDialog.show()" disabled="#{empty usuarioController.selected}"/>
             <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{appBundle.Delete}" actionListener="#{usuarioController.delete}" update=":growl,datalist" disabled="#{empty usuarioController.selected}">

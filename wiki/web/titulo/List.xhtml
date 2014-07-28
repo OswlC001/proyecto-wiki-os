@@ -31,17 +31,9 @@
                 <p:ajax event="rowUnselect" update=":TituloListForm:createButton :TituloListForm:viewButton :TituloListForm:editButton :TituloListForm:deleteButton :TituloListForm:TituloDataTableContextMenu" listener="#{tituloController.resetParents}"/>
                 <p:ajax event="rowDblselect" onsuccess="document.getElementById('TituloListForm:viewButton').click();"/>
 
-                <p:column sortBy="#{item.titCodigo}" filterBy="#{item.titCodigo}">
-                    <f:facet name="header">
-                        <h:outputText value="#{appBundle.ListTituloTitle_titCodigo}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.titCodigo}"/>
-                </p:column>
-
-
                 <p:column sortBy="#{item.titTitulo}" filterBy="#{item.titTitulo}">
                     <f:facet name="header">
-                        <h:outputText value="#{appBundle.ListTituloTitle_titTitulo}"/>
+                        <h:outputText value="Temáticas"/>
                     </f:facet>
                     <h:outputText value="#{item.titTitulo}"/>
                 </p:column>
@@ -52,7 +44,7 @@
             <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{appBundle.Create}" actionListener="#{tituloController.prepareCreate}" update=":TituloCreateForm" oncomplete="TituloCreateDialog.show()"/>
             <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{appBundle.View}" update=":TituloViewForm" oncomplete="TituloViewDialog.show()" disabled="#{empty tituloController.selected}"/>
             <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{appBundle.Edit}" update=":TituloEditForm" oncomplete="TituloEditDialog.show()" disabled="#{empty tituloController.selected}"/>
-            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{appBundle.Delete}" actionListener="#{tituloController.delete}" update=":growl,datalist" disabled="#{empty tituloController.selected}">
+            <p:commandButton id="deleteButton" ajax="false" style="visibility: hidden;" icon="ui-icon-trash"  value="#{appBundle.Delete}" actionListener="#{tituloController.delete}" update=":growl,datalist" disabled="#{empty tituloController.selected}">
                 <p:confirm header="#{appBundle.ConfirmationHeader}" message="#{appBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
             </p:commandButton>
 
