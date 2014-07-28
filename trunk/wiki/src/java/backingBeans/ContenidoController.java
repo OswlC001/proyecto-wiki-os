@@ -1,9 +1,12 @@
 package backingBeans;
 
 import entidades.Contenido;
+import entidades.Titulo;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
+import javax.faces.context.ExternalContext;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -26,9 +29,12 @@ public class ContenidoController extends AbstractController<Contenido> {
     private DiscusionController discusionListController;
 
     String contenido;
-    String usCodigo="Oswaldo";
-    String titulo = "Casa";
-    Integer titCodigo=4;
+    String usCodigo;
+    String titulo;
+    Integer titCodigo;
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    ExternalContext externalContext = facesContext.getExternalContext();
+    Map params = externalContext.getRequestParameterMap();
 
     public ContenidoController() {
         // Inform the Abstract parent controller of the concrete Contenido?cap_first Entity
@@ -36,13 +42,14 @@ public class ContenidoController extends AbstractController<Contenido> {
     }
 
     public String getTitulo() {
+        obtDatos();
         return titulo;
     }
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
-    }   
-    
+    }
+
     /**
      * Resets the "selected" attribute of any parent Entity controllers.
      */
@@ -97,8 +104,8 @@ public class ContenidoController extends AbstractController<Contenido> {
 
     public void setContenido(String contenido) {
         this.contenido = contenido;
-    }  
-    
+    }
+
     public String getContenido() {
         List<Contenido> listCont = contenidoFacade.getItemsContenido(titCodigoController.findObj(titCodigo));
         contenido = "vacio";
@@ -110,14 +117,43 @@ public class ContenidoController extends AbstractController<Contenido> {
         }
         return contenido;
     }
+
+    public Integer getTitCodigo() {
+        return titCodigo;
+    }
+
+    public void setTitCodigo(Integer titCodigo) {
+        this.titCodigo = titCodigo;
+    }
+
     
-    public void guardar(){
+    
+    public String guardar() {
         Contenido contObj = new Contenido();
         contObj.setConContenido(contenido);
         contObj.setConFecha(new Date());
         contObj.setTitCodigo(titCodigoController.findObj(titCodigo));
         contObj.setUsId(usIdController.findObj(usCodigo));
         contenidoFacade.create(contObj);
+        return "/contenido/index.xhtml";
+    }
+
+    private void obtDatos() {
+        usCodigo = "Oswaldo";        
+        Object param = params.get("param");
+        if (param == null) {
+            if (titCodigo == null) {
+                titCodigo = 1;
+            }
+        } else {
+            titCodigo = new Integer(param.toString());
+        }
+        Titulo titObj = titCodigoController.findObj(titCodigo);
+        if (titObj != null) {
+            titulo = titObj.getTitTitulo();
+        } else {
+            titulo = "";
+        }
     }
 
 }
