@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ContenidoViewDlg" widgetVar="ContenidoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{appBundle.ViewContenidoTitle}" closeOnEscape="true">
+
+            <h:form id="ContenidoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{contenidoController.selected != null}">
+
+                        <h:outputText value="#{appBundle.ViewContenidoLabel_conCodigo}"/>
+                        <h:outputText value="#{contenidoController.selected.conCodigo}" title="#{appBundle.ViewContenidoTitle_conCodigo}"/>
+
+                        <h:outputText value="#{appBundle.ViewContenidoLabel_conContenido}"/>
+                        <h:outputText value="#{contenidoController.selected.conContenido}" title="#{appBundle.ViewContenidoTitle_conContenido}"/>
+
+                        <h:outputText value="#{appBundle.ViewContenidoLabel_conFecha}"/>
+                        <h:outputText value="#{contenidoController.selected.conFecha}" title="#{appBundle.ViewContenidoTitle_conFecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{appBundle.ViewContenidoLabel_titCodigo}"/>
+                        <h:outputText value="#{contenidoController.selected.titCodigo.titCodigo}"/>
+
+                        <h:outputText value="#{appBundle.ViewContenidoLabel_usId}"/>
+                        <h:outputText value="#{contenidoController.selected.usId.usId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{appBundle.Close}" onclick="ContenidoViewDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

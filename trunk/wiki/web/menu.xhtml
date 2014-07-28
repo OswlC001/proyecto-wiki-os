@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <h:form id="menuForm">
+            <p:dataTable id="datalist" value="#{tituloController.items}" var="item" rowKey="#{item.titCodigo}" paginator="false" rows="20" selectionMode="single" selection="#{tituloController.selected}">          
+                <p:column filterBy="#{item.titTitulo}"> 
+                    <f:facet name="header">
+                        <h:outputText value="Buscar:"/>
+                    </f:facet>
+                    <h:link value="#{item.titTitulo}" outcome="/contenido/index?param=#{item.titCodigo}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:composition>
+
+</html>

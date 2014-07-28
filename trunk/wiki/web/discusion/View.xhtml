@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DiscusionViewDlg" widgetVar="DiscusionViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{appBundle.ViewDiscusionTitle}" closeOnEscape="true">
+
+            <h:form id="DiscusionViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{discusionController.selected != null}">
+
+                        <h:outputText value="#{appBundle.ViewDiscusionLabel_disCodigo}"/>
+                        <h:outputText value="#{discusionController.selected.disCodigo}" title="#{appBundle.ViewDiscusionTitle_disCodigo}"/>
+
+                        <h:outputText value="#{appBundle.ViewDiscusionLabel_disComentario}"/>
+                        <h:outputText value="#{discusionController.selected.disComentario}" title="#{appBundle.ViewDiscusionTitle_disComentario}"/>
+
+                        <h:outputText value="#{appBundle.ViewDiscusionLabel_conCodigo}"/>
+                        <h:outputText value="#{discusionController.selected.conCodigo.conCodigo}"/>
+
+                        <h:outputText value="#{appBundle.ViewDiscusionLabel_usId}"/>
+                        <h:outputText value="#{discusionController.selected.usId.usId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{appBundle.Close}" onclick="DiscusionViewDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ContenidoCreateDlg" widgetVar="ContenidoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{appBundle.CreateContenidoTitle}" closeOnEscape="true">
+
+            <h:form id="ContenidoCreateForm">
+
+                <h:panelGroup id="display" rendered="#{contenidoController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{appBundle.CreateContenidoLabel_conContenido}" for="conContenido" />
+                        <p:inputTextarea rows="4" cols="30" id="conContenido" value="#{contenidoController.selected.conContenido}" title="#{appBundle.CreateContenidoTitle_conContenido}" />
+
+                        <p:outputLabel value="#{appBundle.CreateContenidoLabel_conFecha}" for="conFecha" />
+                        <p:calendar id="conFecha" pattern="MM/dd/yyyy HH:mm:ss" value="#{contenidoController.selected.conFecha}" title="#{appBundle.CreateContenidoTitle_conFecha}"  showOn="button"/>
+
+                        <p:outputLabel value="#{appBundle.CreateContenidoLabel_titCodigo}" for="titCodigo" />
+                        <p:selectOneMenu id="titCodigo" value="#{contenidoController.selected.titCodigo}"  converter="tituloConverter">
+                            <f:selectItem itemLabel="#{appBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tituloController.items}"
+                                           var="titCodigoItem"
+                                           itemValue="#{titCodigoItem}"
+                                           itemLabel="#{titCodigoItem.titCodigo.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{appBundle.CreateContenidoLabel_usId}" for="usId" />
+                        <p:selectOneMenu id="usId" value="#{contenidoController.selected.usId}"  converter="usuarioConverter">
+                            <f:selectItem itemLabel="#{appBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.items}"
+                                           var="usIdItem"
+                                           itemValue="#{usIdItem}"
+                                           itemLabel="#{usIdItem.usId.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{contenidoController.saveNew}" value="#{appBundle.Save}" update="display,:ContenidoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,ContenidoCreateDialog);">
+                        <p:confirm header="#{appBundle.ConfirmationHeader}" message="#{appBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{appBundle.Cancel}" onclick="ContenidoCreateDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

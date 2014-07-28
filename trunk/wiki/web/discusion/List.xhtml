@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="DiscusionListForm">
+
+        <p:panel header="#{appBundle.ListDiscusionTitle}">
+            <p:contextMenu id="DiscusionDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{appBundle.Create}" onclick="document.getElementById('DiscusionListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{appBundle.View}" onclick="document.getElementById('DiscusionListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{appBundle.Edit}" onclick="document.getElementById('DiscusionListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{appBundle.Delete}" onclick="document.getElementById('DiscusionListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{appBundle.DiscusionMenuItem_conCodigo}" icon="ui-icon-search"  actionListener="#{discusionController.prepareConCodigo}" update=":ContenidoViewForm" oncomplete="ContenidoViewDialog.show()" disabled="#{empty discusionController.selected.conCodigo}"/>  
+                <p:menuitem value="#{appBundle.DiscusionMenuItem_usId}" icon="ui-icon-search"  actionListener="#{discusionController.prepareUsId}" update=":UsuarioViewForm" oncomplete="UsuarioViewDialog.show()" disabled="#{empty discusionController.selected.usId}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{discusionController.items}"
+                         var="item"
+                         rowKey="#{item.disCodigo}"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{discusionController.selected}">
+
+                <p:ajax event="rowSelect"   update=":DiscusionListForm:createButton :DiscusionListForm:viewButton :DiscusionListForm:editButton :DiscusionListForm:deleteButton :DiscusionListForm:DiscusionDataTableContextMenu" listener="#{discusionController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":DiscusionListForm:createButton :DiscusionListForm:viewButton :DiscusionListForm:editButton :DiscusionListForm:deleteButton :DiscusionListForm:DiscusionDataTableContextMenu" listener="#{discusionController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('DiscusionListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.disCodigo}" filterBy="#{item.disCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{appBundle.ListDiscusionTitle_disCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.disCodigo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.disComentario}" filterBy="#{item.disComentario}">
+                    <f:facet name="header">
+                        <h:outputText value="#{appBundle.ListDiscusionTitle_disComentario}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.disComentario}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.conCodigo.conCodigo}" filterBy="#{item.conCodigo.conCodigo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{appBundle.ListDiscusionTitle_conCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.conCodigo.conCodigo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.usId.usId}" filterBy="#{item.usId.usId}">
+                    <f:facet name="header">
+                        <h:outputText value="#{appBundle.ListDiscusionTitle_usId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.usId.usId}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{appBundle.Create}" actionListener="#{discusionController.prepareCreate}" update=":DiscusionCreateForm" oncomplete="DiscusionCreateDialog.show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{appBundle.View}" update=":DiscusionViewForm" oncomplete="DiscusionViewDialog.show()" disabled="#{empty discusionController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{appBundle.Edit}" update=":DiscusionEditForm" oncomplete="DiscusionEditDialog.show()" disabled="#{empty discusionController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{appBundle.Delete}" actionListener="#{discusionController.delete}" update=":growl,datalist" disabled="#{empty discusionController.selected}">
+                <p:confirm header="#{appBundle.ConfirmationHeader}" message="#{appBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

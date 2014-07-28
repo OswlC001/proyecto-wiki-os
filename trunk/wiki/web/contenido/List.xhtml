@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ContenidoListForm">
+        <p align="right">
+            <p:commandLink value="Ingresar"/> &nbsp;&nbsp;
+            <p:commandLink value="Registrarse"/>&nbsp;&nbsp;&nbsp;
+        </p>
+        <p:tabView id="tabW1">
+            <p:tab id="tab1" title="Contenido">
+                <p:panel header="#{contenidoController.titulo}">
+                    <h:outputText escape="false" id="visor" value="#{contenidoController.contenido}"/>
+                </p:panel>
+            </p:tab>            
+            <p:tab id="tab2" title="Discusión">
+                <p:panel header="#{contenidoController.titulo}">
+                    <p:dataTable id="datalistD" value="#{discusionController.items}" var="item" paginator="true" rows="10" rowsPerPageTemplate="10,20,30,40,50">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Usuario:"/>
+                            </f:facet>
+                            <h:outputText value="#{item.usId.usId}" style="width: 200px"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Comentario:"/>
+                            </f:facet>
+                            <h:outputText value="#{item.disComentario}"/>
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:commandButton id="createButtonD" icon="ui-icon-plus"   value="Comentar" actionListener="#{discusionController.prepareCreate}" update=":DiscusionCreateForm" oncomplete="DiscusionCreateDialog.show()"/>
+                </p:panel>
+            </p:tab>
+            <p:tab id="tab3" title="Historial">
+                <p:panel header="#{contenidoController.titulo}" style="text-align: center">           
+                    <p:dataTable id="datalist" rowIndexVar="rowIndex"  value="#{contenidoController.itemsContenido}" var="item" paginator="true" rows="10" rowsPerPageTemplate="10,20,30,40,50">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Versión"/>
+                            </f:facet>
+                            <h:outputText value="#{rowIndex+1}"/>
+                        </p:column>
+
+                        <p:column style="text-align: left">
+                            <f:facet name="header">
+                                <h:outputText value="Contenido"/>
+                            </f:facet>
+                            <h:outputText escape="false" value="#{item.conContenido}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Autor"/>
+                            </f:facet>
+                            <h:outputText value="#{item.usId.usId}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Fecha y Hora de Edición"/>
+                            </f:facet>
+                            <h:outputText value="#{item.conFecha}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>              
+                </p:panel>
+            </p:tab>
+            <p:tab id="tab4" title="Editar">
+                <p:panel header="#{contenidoController.titulo}">
+                    <p:editor id="editor" value="#{contenidoController.contenido}" widgetVar="editorWidget" height="400"/>
+                    <h:panelGrid columns="2" style="margin-top: 10px">
+                        <p:commandButton id="guardar" value="Guardar" action="#{contenidoController.guardar}" ajax="false"  icon="ui-icon-disk" />
+                        <p:commandButton id="cancelar" value="Cancelar" type="button" onclick="PF('editorWidget').clear();" icon="ui-icon-close" />
+                    </h:panelGrid>
+                </p:panel>
+            </p:tab>
+        </p:tabView>
+    </h:form>
+
+</ui:composition>

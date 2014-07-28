@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TituloEditDlg" widgetVar="TituloEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{appBundle.EditTituloTitle}" closeOnEscape="true">
+
+            <h:form id="TituloEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tituloController.selected != null}">
+
+
+                        <h:outputLabel value="#{appBundle.EditTituloLabel_titCodigo}" for="titCodigo" />
+                        <h:outputText id="titCodigo" value="#{tituloController.selected.titCodigo}" />
+
+                        <p:outputLabel value="#{appBundle.EditTituloLabel_titTitulo}" for="titTitulo" />
+                        <p:inputText id="titTitulo" value="#{tituloController.selected.titTitulo}" title="#{appBundle.EditTituloTitle_titTitulo}" size="70" maxlength="70"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tituloController.save}" value="#{appBundle.Save}" update="display,:TituloListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,TituloEditDialog);">
+                        <p:confirm header="#{appBundle.ConfirmationHeader}" message="#{appBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{appBundle.Cancel}" onclick="TituloEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

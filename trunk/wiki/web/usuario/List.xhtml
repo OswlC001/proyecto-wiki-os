@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="UsuarioListForm">
+
+        <p:panel header="#{appBundle.ListUsuarioTitle}">
+            <p:contextMenu id="UsuarioDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{appBundle.Create}" onclick="document.getElementById('UsuarioListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{appBundle.View}" onclick="document.getElementById('UsuarioListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{appBundle.Edit}" onclick="document.getElementById('UsuarioListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{appBundle.Delete}" onclick="document.getElementById('UsuarioListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{appBundle.UsuarioMenuItem_contenidoList}" icon="ui-icon-search"  action="#{usuarioController.navigateContenidoList}" disabled="#{empty usuarioController.selected.contenidoList}" ajax="false"/>  
+                <p:menuitem value="#{appBundle.UsuarioMenuItem_discusionList}" icon="ui-icon-search"  action="#{usuarioController.navigateDiscusionList}" disabled="#{empty usuarioController.selected.discusionList}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{usuarioController.items}"
+                         var="item"
+                         rowKey="#{item.usId}"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{usuarioController.selected}">
+
+                <p:ajax event="rowSelect"   update=":UsuarioListForm:createButton :UsuarioListForm:viewButton :UsuarioListForm:editButton :UsuarioListForm:deleteButton :UsuarioListForm:UsuarioDataTableContextMenu" listener="#{usuarioController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":UsuarioListForm:createButton :UsuarioListForm:viewButton :UsuarioListForm:editButton :UsuarioListForm:deleteButton :UsuarioListForm:UsuarioDataTableContextMenu" listener="#{usuarioController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('UsuarioListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.usId}" filterBy="#{item.usId}">
+                    <f:facet name="header">
+                        <h:outputText value="#{appBundle.ListUsuarioTitle_usId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.usId}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.usApellidos}" filterBy="#{item.usApellidos}">
+                    <f:facet name="header">
+                        <h:outputText value="#{appBundle.ListUsuarioTitle_usApellidos}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.usApellidos}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.usNombre}" filterBy="#{item.usNombre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{appBundle.ListUsuarioTitle_usNombre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.usNombre}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.usTipo}" filterBy="#{item.usTipo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{appBundle.ListUsuarioTitle_usTipo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.usTipo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.usClave}" filterBy="#{item.usClave}">
+                    <f:facet name="header">
+                        <h:outputText value="#{appBundle.ListUsuarioTitle_usClave}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.usClave}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{appBundle.Create}" actionListener="#{usuarioController.prepareCreate}" update=":UsuarioCreateForm" oncomplete="UsuarioCreateDialog.show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{appBundle.View}" update=":UsuarioViewForm" oncomplete="UsuarioViewDialog.show()" disabled="#{empty usuarioController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{appBundle.Edit}" update=":UsuarioEditForm" oncomplete="UsuarioEditDialog.show()" disabled="#{empty usuarioController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{appBundle.Delete}" actionListener="#{usuarioController.delete}" update=":growl,datalist" disabled="#{empty usuarioController.selected}">
+                <p:confirm header="#{appBundle.ConfirmationHeader}" message="#{appBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

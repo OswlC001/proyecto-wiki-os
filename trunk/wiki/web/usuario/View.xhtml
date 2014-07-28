@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioViewDlg" widgetVar="UsuarioViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{appBundle.ViewUsuarioTitle}" closeOnEscape="true">
+
+            <h:form id="UsuarioViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{usuarioController.selected != null}">
+
+                        <h:outputText value="#{appBundle.ViewUsuarioLabel_usId}"/>
+                        <h:outputText value="#{usuarioController.selected.usId}" title="#{appBundle.ViewUsuarioTitle_usId}"/>
+
+                        <h:outputText value="#{appBundle.ViewUsuarioLabel_usApellidos}"/>
+                        <h:outputText value="#{usuarioController.selected.usApellidos}" title="#{appBundle.ViewUsuarioTitle_usApellidos}"/>
+
+                        <h:outputText value="#{appBundle.ViewUsuarioLabel_usNombre}"/>
+                        <h:outputText value="#{usuarioController.selected.usNombre}" title="#{appBundle.ViewUsuarioTitle_usNombre}"/>
+
+                        <h:outputText value="#{appBundle.ViewUsuarioLabel_usTipo}"/>
+                        <h:outputText value="#{usuarioController.selected.usTipo}" title="#{appBundle.ViewUsuarioTitle_usTipo}"/>
+
+                        <h:outputText value="#{appBundle.ViewUsuarioLabel_usClave}"/>
+                        <h:outputText value="#{usuarioController.selected.usClave}" title="#{appBundle.ViewUsuarioTitle_usClave}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{appBundle.Close}" onclick="UsuarioViewDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

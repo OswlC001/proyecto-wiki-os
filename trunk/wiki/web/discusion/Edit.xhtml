@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="DiscusionEditDlg" widgetVar="DiscusionEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{appBundle.EditDiscusionTitle}" closeOnEscape="true">
+
+            <h:form id="DiscusionEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{discusionController.selected != null}">
+
+
+                        <h:outputLabel value="#{appBundle.EditDiscusionLabel_disCodigo}" for="disCodigo" />
+                        <h:outputText id="disCodigo" value="#{discusionController.selected.disCodigo}" />
+
+                        <p:outputLabel value="#{appBundle.EditDiscusionLabel_disComentario}" for="disComentario" />
+                        <p:inputTextarea rows="4" cols="30" id="disComentario" value="#{discusionController.selected.disComentario}" title="#{appBundle.EditDiscusionTitle_disComentario}" />
+
+                        <p:outputLabel value="#{appBundle.EditDiscusionLabel_conCodigo}" for="conCodigo" />
+                        <p:selectOneMenu id="conCodigo" value="#{discusionController.selected.conCodigo}"  converter="contenidoConverter">
+                            <f:selectItem itemLabel="#{appBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{contenidoController.items}"
+                                           var="conCodigoItem"
+                                           itemValue="#{conCodigoItem}"
+                                           itemLabel="#{conCodigoItem.conCodigo.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{appBundle.EditDiscusionLabel_usId}" for="usId" />
+                        <p:selectOneMenu id="usId" value="#{discusionController.selected.usId}"  converter="usuarioConverter">
+                            <f:selectItem itemLabel="#{appBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.items}"
+                                           var="usIdItem"
+                                           itemValue="#{usIdItem}"
+                                           itemLabel="#{usIdItem.usId.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{discusionController.save}" value="#{appBundle.Save}" update="display,:DiscusionListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,DiscusionEditDialog);">
+                        <p:confirm header="#{appBundle.ConfirmationHeader}" message="#{appBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{appBundle.Cancel}" onclick="DiscusionEditDialog.hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
