@@ -1,20 +1,27 @@
 package backingBeans;
 
 import entidades.Discusion;
+import entidades.Titulo;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
+import sessionBeans.DiscusionFacade;
 
 @Named(value = "discusionController")
 @ViewScoped
 public class DiscusionController extends AbstractController<Discusion> {
+   
 
     @Inject
     private ContenidoController conCodigoController;
     @Inject
     private UsuarioController usIdController;
+    
+    
 
     public DiscusionController() {
         // Inform the Abstract parent controller of the concrete Discusion?cap_first Entity
@@ -54,4 +61,6 @@ public class DiscusionController extends AbstractController<Discusion> {
             usIdController.setSelected(this.getSelected().getUsId());
         }
     }
+    
+  
 }

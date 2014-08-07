@@ -18,6 +18,11 @@
                         <p:outputLabel value="Comentario" for="disComentario" />
                         <p:inputTextarea rows="4" cols="30" id="disComentario" value="#{discusionController.selected.disComentario}" title="#{appBundle.CreateDiscusionTitle_disComentario}" />
 
+                        <p:outputLabel value="Contenido" for="conCodigo" />
+                        <p:selectOneMenu id="conCodigo" value="#{discusionController.selected.conCodigo}"  converter="contenidoConverter" disabled="true">
+                            <f:selectItem itemLabel="#{contenidoController.cont}"/>
+                        </p:selectOneMenu>
+
                     </p:panelGrid>
                     <p align="center">
                         <p:commandButton actionListener="#{discusionController.saveNew}" value="#{appBundle.Save}" ajax="false" oncomplete="handleSubmit(xhr,status,args,DiscusionCreateDialog);">

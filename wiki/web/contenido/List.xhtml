@@ -19,15 +19,15 @@
                     <h:outputText escape="false" id="visor" value="#{contenidoController.contenido}"/>
                 </p:panel>
             </p:tab>            
-            <!--p:tab id="tab2" title="Discusión">
+            <p:tab id="tab2" title="Comentarios">
                 <p:panel header="#{contenidoController.titulo}">
                     <p:dataTable id="datalistD" value="#{discusionController.items}" var="item" paginator="true" rows="10" rowsPerPageTemplate="10,20,30,40,50">
-                        <p:column>
+                        <!--p:column>
                             <f:facet name="header">
                                 <h:outputText value="Usuario:"/>
                             </f:facet>
                             <h:outputText value="#{item.usId.usId}" style="width: 200px"/>
-                        </p:column>
+                        </p:column-->
 
                         <p:column>
                             <f:facet name="header">
@@ -39,7 +39,7 @@
 
                     <p:commandButton id="createButtonD" icon="ui-icon-plus"   value="Comentar" actionListener="#{discusionController.prepareCreate}" update=":DiscusionCreateForm" oncomplete="DiscusionCreateDialog.show()"/>
                 </p:panel>
-            </p:tab-->
+            </p:tab>
             <p:tab id="tab3" title="Historial">
                 <p:panel header="#{contenidoController.titulo}" style="text-align: center">           
                     <p:dataTable id="datalist" rowIndexVar="rowIndex"  value="#{contenidoController.itemsContenido}" var="item" paginator="true" rows="15" rowsPerPageTemplate="10,20,30,40,50">
