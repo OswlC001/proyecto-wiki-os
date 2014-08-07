@@ -7,6 +7,8 @@
 package sessionBeans;
 
 import entidades.Discusion;
+import entidades.Titulo;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +29,11 @@ public class DiscusionFacade extends AbstractFacade<Discusion> {
 
     public DiscusionFacade() {
         super(Discusion.class);
+    }
+    
+    public List<Discusion> getItemsComentarios(Titulo titulo){
+        List<Discusion> itemsComentarios = em.createQuery("SELECT d FROM Discusion d WHERE d.conCodigo.titCodigo = :titCodigo").setParameter("titCodigo", titulo).getResultList();
+        return itemsComentarios;
     }
     
 }
