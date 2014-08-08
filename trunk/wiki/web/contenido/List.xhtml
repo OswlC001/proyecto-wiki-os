@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -6,7 +6,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
 
-    <h:form id="ContenidoListForm">
+    <h:form id="ContenidoListForm" acceptcharset="ISO-8859-1">
         <p align="right">
             <p:commandLink rendered="#{userLoginView.ingreso=='Ingresar'}" id="ingresar" value="#{userLoginView.ingreso}" onclick="PF('dlg').show();"/> &nbsp;&nbsp;
             <h:link rendered="#{userLoginView.ingreso!='Ingresar'}" value="#{userLoginView.ingreso}" outcome="/usuario/index"/>&nbsp;&nbsp;&nbsp;
@@ -19,15 +19,15 @@
                     <h:outputText escape="false" id="visor" value="#{contenidoController.contenido}"/>
                 </p:panel>
             </p:tab>            
-            <p:tab id="tab2" title="Comentarios">
+            <p:tab id="tab2" title="Discusi&oacute;n">
                 <p:panel header="#{contenidoController.titulo}">
-                    <p:dataTable id="datalistD" value="#{discusionController.items}" var="item" paginator="true" rows="10" rowsPerPageTemplate="10,20,30,40,50">
-                        <!--p:column>
+                    <p:dataTable id="datalistD" value="#{contenidoController.itemsComentarios}" var="item" paginator="true" rows="10" rowsPerPageTemplate="10,20,30,40,50">
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Usuario:"/>
                             </f:facet>
                             <h:outputText value="#{item.usId.usId}" style="width: 200px"/>
-                        </p:column-->
+                        </p:column>
 
                         <p:column>
                             <f:facet name="header">
@@ -77,7 +77,7 @@
             </p:tab>
             <p:tab id="tab4" title="Editar">
                 <p:panel header="#{contenidoController.titulo}">
-                    <p:editor id="editor" value="#{contenidoController.contenido}" widgetVar="editorWidget" height="400"/>
+                    <p:editor id="editor" value="#{contenidoController.contenido}" disabled="#{contenidoController.usCodigo==null}" widgetVar="editorWidget" height="400"/>
                     <h:panelGrid columns="2" style="margin-top: 10px">
                         <p:commandButton disabled="#{contenidoController.usCodigo==null}" id="guardar" value="Guardar" action="#{contenidoController.guardar}" ajax="false"  icon="ui-icon-disk">
                             <f:param name="param" value="#{contenidoController.titCodigo}" />
