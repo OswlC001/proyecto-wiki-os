@@ -19,7 +19,7 @@
                 <p:menuitem value="#{appBundle.DiscusionMenuItem_usId}" icon="ui-icon-search"  actionListener="#{discusionController.prepareUsId}" update=":UsuarioViewForm" oncomplete="UsuarioViewDialog.show()" disabled="#{empty discusionController.selected.usId}"/>  
             </p:contextMenu>
             <p:dataTable id="datalist"
-                         value="#{contenidoController.itemsComentarios}"
+                         value="#{discusionController.items}"
                          var="item"
                          rowKey="#{item.disCodigo}"
                          paginator="true"

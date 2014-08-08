@@ -197,7 +197,7 @@ public class ContenidoController extends AbstractController<Contenido> {
         }
     }
 
-    public Contenido getCont() {
+    public Contenido getContObj() {
         try {
             List<Contenido> listCont = contenidoFacade.getItemsContenido(titCodigoController.findObj(titCodigo));
             if (listCont.size() > 0) {
@@ -220,6 +220,17 @@ public class ContenidoController extends AbstractController<Contenido> {
         System.out.println("titCodigo " + titCodigo);
         List<Discusion> itemsComentarios = discusionFacade.getItemsComentarios(titCodigoController.findObj(titCodigo));
         return itemsComentarios;
+    }
+
+    public Usuario getUsuarioObj() {
+        Usuario usObj = usuarioFacade.find(usCodigo);
+        return usObj;
+    }
+
+    public void actUsCont(ActionEvent event) {
+        discusionListController.getSelected().setConCodigo(getContObj());
+        discusionListController.getSelected().setUsId(getUsuarioObj());
+        discusionListController.saveNew(event);
     }
 
 }
