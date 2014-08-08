@@ -6,13 +6,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
 
-    <h:form id="ContenidoListForm" acceptcharset="ISO-8859-1">
-        <p align="right">
-            <p:commandLink rendered="#{userLoginView.ingreso=='Ingresar'}" id="ingresar" value="#{userLoginView.ingreso}" onclick="PF('dlg').show();"/> &nbsp;&nbsp;
-            <h:link rendered="#{userLoginView.ingreso!='Ingresar'}" value="#{userLoginView.ingreso}" outcome="/usuario/index"/>&nbsp;&nbsp;&nbsp;
-            <h:link rendered="#{userLoginView.ingreso=='Ingresar'}" value="Registrarse" outcome="/usuario/index"/>&nbsp;&nbsp;&nbsp;
-            <p:commandLink rendered="#{userLoginView.ingreso!='Ingresar'}" id="salir2" value="Salir" onclick="PF('dlgSalir').show();"/> &nbsp;&nbsp;
-        </p>
+    <h:form id="ContenidoListForm" acceptcharset="ISO-8859-1">        
         <p:tabView id="tabW1">
             <p:tab id="tab1" title="Contenido">
                 <p:panel header="#{contenidoController.titulo}">
@@ -87,32 +81,5 @@
                 </p:panel>
             </p:tab>
         </p:tabView>       
-    </h:form>
-    <h:form id="formLog">
-        <p:dialog header="Login" widgetVar="dlg" resizable="false">
-            <h:panelGrid columns="2" cellpadding="5">
-                <h:outputLabel for="username" value="Username:" />
-                <p:inputText id="username" value="#{userLoginView.username}" required="true" label="username" />
-
-                <h:outputLabel for="password" value="Password:" />
-                <p:password id="password" value="#{userLoginView.password}" required="true" label="password" />
-
-                <f:facet name="footer">
-                    <p:commandButton value="Login" update=":ContenidoListForm" actionListener="#{userLoginView.login}"
-                                     oncomplete="handleLoginRequest(xhr, status, args)" />
-                </f:facet>  
-            </h:panelGrid>
-        </p:dialog>
-    </h:form>
-    <h:form id="formSalir">
-        <p:dialog header="Salir" widgetVar="dlgSalir" resizable="false">
-            <h:panelGrid columns="2" cellpadding="5"> 
-                <h:outputText value="¿Seguro desea cerrar sesión?"/>
-                <br/>              
-                <h:panelGrid columns="2" style="margin-top: 10px; text-align: center">
-                    <p:commandButton id="salir" value="Aceptar" ajax="falses" action="#{userLoginView.logout}" oncomplete="PF('dlgSalir').clear();"/>
-                </h:panelGrid>              
-            </h:panelGrid>
-        </p:dialog>
-    </h:form>
+    </h:form>  
 </ui:composition>
