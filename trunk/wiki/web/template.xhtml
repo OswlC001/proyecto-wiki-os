@@ -31,7 +31,7 @@
                         <p:commandLink rendered="#{userLoginView.ingreso!='Ingresar'}" id="salir2" value="Salir" onclick="PF('dlgSalir').show();"/> &nbsp;&nbsp;
                     </p>
                 </h:form> 
-                <ui:insert name="body"/>
+                <ui:insert name="body"/>                  
                 <h:form id="formLog">
                     <p:dialog header="Login" widgetVar="dlg" resizable="false">
                         <h:panelGrid columns="2" cellpadding="5">
@@ -42,7 +42,7 @@
                             <p:password id="password" value="#{userLoginView.password}" required="true" label="password" />
 
                             <f:facet name="footer">
-                                <p:commandButton value="Login" update=":formLinks, :ContenidoListForm, :growl" actionListener="#{userLoginView.login}"
+                                <p:commandButton value="Login" update=":formLinks, :growl" actionListener="#{userLoginView.login}"
                                                  oncomplete="handleLoginRequest(xhr, status, args)" />
                             </f:facet>  
                         </h:panelGrid>
@@ -59,10 +59,44 @@
                         </h:panelGrid>
                     </p:dialog>
                 </h:form> 
+            </p:layoutUnit>   
+            <p:layoutUnit position="east" size="150">
+                <script type="text/javascript"><!--
+                    google_ad_client = "ca-pub-8505972930632681";
+                    /* derecha */
+                    google_ad_slot = "4293668850";
+                    google_ad_width = 300;
+                    google_ad_height = 300;
+                    //-->
+                </script>
+                <script type="text/javascript"
+                        src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+                </script>  
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                <script type="text/javascript"><!--
+                    google_ad_client = "ca-pub-8505972930632681";
+                    /* Pie */
+                    google_ad_slot = "8863469251";
+                    google_ad_width = 300;
+                    google_ad_height = 300;
+                    //-->
+                </script>
+                <script type="text/javascript"
+                        src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+                </script>
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                <script type="text/javascript"><!--
+                    google_ad_client = "ca-pub-8505972930632681";
+                    /* Pie2 */
+                    google_ad_slot = "5770402054";
+                    google_ad_width = 300;
+                    google_ad_height = 250;
+                    //-->
+                </script>
+                <script type="text/javascript"
+                        src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+                </script>
             </p:layoutUnit>
-
-        </p:layout>
-
-    </h:body>
-
+        </p:layout>       
+    </h:body>   
 </html>
