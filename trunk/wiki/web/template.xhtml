@@ -16,9 +16,12 @@
 
         <p:growl id="growl" life="3000"/>
 
-        <p:layout fullPage="true">
-            <p:layoutUnit position="west" size="200">
+        <p:layout id="lay1" fullPage="true">
+            <p:layoutUnit id="menutem" position="west" size="200">
                 <center><h:graphicImage library="images" name="mundo.jpg" height="150" width="150"/></center>
+                <h:form id="formNuevoTema">
+                    &nbsp;&nbsp;<h:link id="nuevoTema" rendered="#{userLoginView.ingreso!='Ingresar'}" value="Nuevo Tema" outcome="/titulo/index"/>
+                </h:form>
                 <ui:include src="/menu.xhtml"/>
             </p:layoutUnit>
 
@@ -42,8 +45,10 @@
                             <p:password id="password" value="#{userLoginView.password}" required="true" label="password" />
 
                             <f:facet name="footer">
-                                <p:commandButton value="Login" update=":formLinks, :growl" actionListener="#{userLoginView.login}"
-                                                 oncomplete="handleLoginRequest(xhr, status, args)" />
+                                <p:commandButton rendered="#{component.findComponent(':ContenidoListForm:tabW1:guardar')!= null}" id="btnLogin1" value="Login" update=":formLinks, :growl, :formNuevoTema, :ContenidoListForm:tabW1:guardar" actionListener="#{userLoginView.login}"
+                                                 oncomplete="handleLoginRequest(xhr, status, args)"/>
+                                <p:commandButton rendered="#{component.findComponent(':ContenidoListForm:tabW1:guardar')== null}" id="btnLogin" value="Login" update=":formLinks, :growl, :formNuevoTema" actionListener="#{userLoginView.login}"
+                                                 oncomplete="handleLoginRequest(xhr, status, args)"/>
                             </f:facet>  
                         </h:panelGrid>
                     </p:dialog>

@@ -8,7 +8,7 @@
 
     <ui:composition>
         <h:form id="menuForm">
-            <p:dataTable id="datalist" value="#{tituloController.items}" var="item" rowKey="#{item.titCodigo}" paginator="false" rows="20">          
+            <p:dataTable id="datalist" value="#{tituloController.items}" var="item" rowKey="#{item.titCodigo}" paginator="false">          
                 <p:column filterBy="#{item.titTitulo}"> 
                     <f:facet name="header">
                         <h:outputText value="Buscar:"/>
@@ -19,7 +19,6 @@
                 </p:column>
             </p:dataTable>
             <br/>
-            &nbsp;&nbsp;<h:link value="Nuevo Tema" outcome="/titulo/index"/>
             <p align="left">
                 <script type="text/javascript"><!--
                     google_ad_client = "ca-pub-8505972930632681";

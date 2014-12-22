@@ -41,7 +41,7 @@
 
             </p:dataTable>
 
-            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{appBundle.Create}" actionListener="#{tituloController.prepareCreate}" update=":TituloCreateForm" oncomplete="TituloCreateDialog.show()"/>
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="Nuevo Titulo" actionListener="#{tituloController.prepareCreate}" update=":TituloCreateForm" oncomplete="TituloCreateDialog.show()"/>
             <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{appBundle.View}" update=":TituloViewForm" oncomplete="TituloViewDialog.show()" disabled="#{empty tituloController.selected}"/>
             <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{appBundle.Edit}" update=":TituloEditForm" oncomplete="TituloEditDialog.show()" disabled="#{empty tituloController.selected}"/>
             <p:commandButton id="deleteButton" ajax="false" style="visibility: hidden;" icon="ui-icon-trash"  value="#{appBundle.Delete}" actionListener="#{tituloController.delete}" update=":growl,datalist" disabled="#{empty tituloController.selected}">
