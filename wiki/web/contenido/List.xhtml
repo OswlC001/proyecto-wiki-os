@@ -39,7 +39,7 @@
                     <p:dataTable id="datalist" rowIndexVar="rowIndex"  value="#{contenidoController.itemsContenido}" var="item" paginator="true" rows="15" rowsPerPageTemplate="10,20,30,40,50">
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="VersiÃ³n"/>
+                                <h:outputText value="Versión"/>
                             </f:facet>
                             <h:outputText value="#{rowIndex+1}"/>
                         </p:column>
@@ -60,7 +60,7 @@
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="Fecha y Hora de EdiciÃ³n"/>
+                                <h:outputText value="Fecha y Hora de Edición"/>
                             </f:facet>
                             <h:outputText value="#{item.conFecha}">
                                 <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
@@ -70,10 +70,10 @@
                 </p:panel>
             </p:tab>
             <p:tab id="tab4" title="Editar">
-                <p:panel header="#{contenidoController.titulo}">
+                <p:panel id="panelt1" header="#{contenidoController.titulo}">
                     <p:editor id="editor" value="#{contenidoController.contenido}" disabled="#{contenidoController.usCodigo==null}" widgetVar="editorWidget" height="400"/>
-                    <h:panelGrid columns="2" style="margin-top: 10px">
-                        <p:commandButton disabled="#{contenidoController.usCodigo==null}" id="guardar" value="Guardar" action="#{contenidoController.guardar}" ajax="false"  icon="ui-icon-disk">
+                    <h:panelGrid id="pgt1" columns="2" style="margin-top: 10px">
+                        <p:commandButton disabled="#{userLoginView.ingreso=='Ingresar'}" id="guardar" value="Guardar" action="#{contenidoController.guardar}" ajax="false"  icon="ui-icon-disk">
                             <f:param name="param" value="#{contenidoController.titCodigo}" />
                         </p:commandButton>
                         <p:commandButton id="cancelar" value="Cancelar" type="button" onclick="PF('editorWidget').clear();" icon="ui-icon-close" />
